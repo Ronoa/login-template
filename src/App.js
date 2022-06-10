@@ -1,20 +1,35 @@
-import FormCustom from "./components/Form";
+import * as React from 'react'
+import { onAuthStateChanged } from 'firebase/auth';
 
+ 
+import {auth} from './fire'
+// import { async } from '@firebase/util'; 
+import Home from './page/Home';
+import Authentication from './page/Autentication';
+
+ 
 function App() {
-  return (
-    <div className="flex w-full h-screen">
-       <div className="w-full flex items-center justify-center lg:w-1/2">
-       <FormCustom/>
-       </div>
-      <div className="hidden relative lg:flex items-center justify-center h-full w-1/2 bg-gray-200">
-       <div className="w-60 h-60 bg-gradient-to-tr from-violet-500 to-pink-500 rounded-full animate-bounce" />
-       <div className="w-full h-1/2 absolute  bottom-0 bg-white/10 backdrop-blur-lg"/>
-       
-       
-        
-      </div>
-    </div>
-  );
+  const [user, setUser] = React.useState()
+  const [authState, setAuthState] = React.useState(null)
+  
+  React.useEffect(()=>{
+    const unSubscribeAuth = onAuthStateChanged(auth,
+      async authenticateUser =>{
+        if(authenticateUser){
+          setUser(authenticateUser.email)
+          setAuthState('home')
+        }else{
+          setUser(null)
+          setAuthState('login')
+        }
+      })
+      return unSubscribeAuth
+  },[user])
+
+  if(!authState) return <div className='font-bold text-center text-5xl'>loading</div>
+  if(authState === 'login' || authState === 'register') return <Authentication stateCurrent={authState} setAuthState={setAuthState} setUser={setUser}/>
+  if(user) return <Home setAuthState={setAuthState} user={user} setUser={setUser}/>
+   
 }
 
 export default App;
