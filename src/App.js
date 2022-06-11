@@ -1,6 +1,5 @@
 import * as React from 'react'
 import { onAuthStateChanged } from 'firebase/auth';
-
  
 import {auth} from './datalayer/connections/Firebase/fire'
 // import { async } from '@firebase/util'; 
