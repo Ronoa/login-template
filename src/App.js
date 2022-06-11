@@ -9,6 +9,7 @@ import Authentication from './page/Autentication'
 import { AuthProvider } from './context/authContext'
 import { ProtectedRoute } from './components/ProtectedRoute'
 
+
 function App() {
   return (
     <AuthProvider>
