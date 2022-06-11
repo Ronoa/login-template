@@ -7,7 +7,7 @@ export default function FormCustom({ stateCurrent }) {
   const [password, setPassword] = React.useState('')
   const [error, setError] = React.useState()
 
-  const { signup, signin } = useAuth()
+  const { signup, signin, signinWithGoogle, resetPassword } = useAuth()
   const navigate = useNavigate()
 
   const handleLogin = async () => {
@@ -21,12 +21,33 @@ export default function FormCustom({ stateCurrent }) {
     }
   }
 
+  const handleLoginGoogle = async () => {
+    try {
+      await signinWithGoogle()
+      navigate('/')
+    } catch (error) {
+      setError(error.message)
+    }
+  }
+
   const onSignUpHandle = async () => {
     try {
       if (email !== null && password !== null) {
         await signup(email, password)
         navigate('/')
       }
+    } catch (error) {
+      setError(error.message)
+    }
+  }
+
+  const handleResetPassword = async () => {
+    if (!email) return setError('Por favor ingrese su correo')
+    try {
+      await resetPassword(email)
+      return setError(
+        'Se envio un correo con el link para resetear su contraseña'
+      )
     } catch (error) {
       setError(error.message)
     }
@@ -89,7 +110,10 @@ export default function FormCustom({ stateCurrent }) {
                 recuerda por 30 dias
               </label>
             </div>
-            <button className='font-medium text-base text-violet-500'>
+            <button
+              onClick={handleResetPassword}
+              className='font-medium text-base text-violet-500'
+            >
               Se te olvidó tu contraseña
             </button>
           </div>
@@ -102,7 +126,10 @@ export default function FormCustom({ stateCurrent }) {
           >
             {formForState.titleButtonPrimary}
           </button>
-          <button className='flex items-center justify-center gap-2 active:scale-[.98] active:duration-75 transition-all hover:scale-[1.01]  ease-in-out transform py-4  rounded-xl text-gray-700 font-semibold text-lg border-2 border-gray-100 '>
+          <button
+            onClick={handleLoginGoogle}
+            className='flex items-center justify-center gap-2 active:scale-[.98] active:duration-75 transition-all hover:scale-[1.01]  ease-in-out transform py-4  rounded-xl text-gray-700 font-semibold text-lg border-2 border-gray-100 '
+          >
             <svg
               width='24'
               height='24'

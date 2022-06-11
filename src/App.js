@@ -24,11 +24,7 @@ function App() {
         />
         <Route
           path='/login'
-          element={
-            <ProtectedRoute>
-              <Authentication stateCurrent={'login'} />
-            </ProtectedRoute>
-          }
+          element={<Authentication stateCurrent={'login'} />}
         />
         <Route
           path='/register'
