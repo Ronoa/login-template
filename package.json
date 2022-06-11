@@ -1,7 +1,11 @@
 {
   "name": "login-template",
   "version": "0.1.0",
-  "private": true,
+  "author": "Jose Flores",
+  "license": "ISC",
+  "engines": {
+    "node": "16.x"
+  },
   "dependencies": {
     "@hot-loader/react-dom": "^17.0.2",
     "@loadable/babel-plugin": "^5.13.2",
