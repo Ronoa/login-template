@@ -3,7 +3,7 @@ import {
   signInWithEmailAndPassword 
 } from 'firebase/auth';
 import * as React from 'react'
-import { auth } from '../fire';
+import { auth } from '../datalayer/connections/Firebase/fire';
 
 export default function FormCustom({
   stateCurrent,

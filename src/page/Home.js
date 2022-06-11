@@ -1,7 +1,6 @@
 import * as React from 'react'
 import { signOut } from 'firebase/auth';
-import { auth } from '../fire';
-
+import { auth } from '../datalayer/connections/Firebase/fire';
 
 export default function Home({
   user,
@@ -17,7 +16,6 @@ export default function Home({
     })
     .catch((err) => console.log(err));
 }
-
 
   return(
     <div className='flex flex-col items-center text-5xl font-bold text-center'>
